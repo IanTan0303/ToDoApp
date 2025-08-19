@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>To‑Do — HTML5 (Vanilla)</title>
+  <meta name="color-scheme" content="light dark" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>✅ To‑Do <span class="muted">(HTML5 • Vanilla JS)</span></h1>
+      <div class="row">
+        <input id="search" class="input" placeholder="Search tasks…" aria-label="Search tasks" />
+        <button id="themeToggle" class="ghost" title="Toggle theme" aria-pressed="false">🌗</button>
+      </div>
+    </header>
+
+    <section class="panel grid" aria-labelledby="formTitle">
+      <div class="toolbar" style="border-bottom:1px solid var(--border)">
+        <h2 id="formTitle" class="sr-only">Add a task</h2>
+        <form id="todoForm" class="todo-form" autocomplete="off">
+          <input id="title" class="input" placeholder="What do you need to do? (e.g., Finish HOG coursework)" aria-label="Task title" required />
+          <input id="due" class="input" type="date" aria-label="Due date" />
+          <select id="priority" aria-label="Priority">
+            <option value="low">Low priority</option>
+            <option value="medium" selected>Medium priority</option>
+            <option value="high">High priority</option>
+          </select>
+          <button class="primary" type="submit" aria-label="Add task">Add</button>
+        </form>
+      </div>
+
+      <div class="toolbar">
+        <span class="chip" id="stats" aria-live="polite">0 tasks</span>
+        <div class="row right">
+          <button id="clearCompleted" class="secondary" title="Remove all completed tasks">Clear completed</button>
+          <button id="exportJson" class="secondary" title="Export tasks as JSON">Export</button>
+          <button id="importJson" class="secondary" title="Import tasks from JSON">Import</button>
+          <input id="importFile" type="file" accept="application/json" hidden />
+          <label class="chip"><input id="autosort" type="checkbox" /> Auto‑sort by priority</label>
+        </div>
+      </div>
+
+      <div class="panel" style="grid-column: 1 / -1;">
+        <ul id="list" class="list" role="list" aria-live="polite"></ul>
+        <div id="empty" class="empty" hidden>
+          No tasks yet. Tip: Press <span class="kbd">Enter</span> to add a task, <span class="kbd">Ctrl/Cmd + K</span> to focus search.
+        </div>
+        <div class="footer">
+          <div class="filters" role="toolbar" aria-label="Filters">
+            <button class="secondary" data-filter="all" aria-pressed="true">All</button>
+            <button class="secondary" data-filter="active" aria-pressed="false">Active</button>
+            <button class="secondary" data-filter="completed" aria-pressed="false">Completed</button>
+          </div>
+          <div class="row">
+            <span class="muted">Drag to reorder • Double‑click a task to edit</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="muted" style="margin-top:16px">
+      Data is saved locally in your browser (localStorage). Works offline.
+    </p>
+  </div>
+
+  <template id="itemTemplate">
+    <li class="item" draggable="true">
+      <input class="checkbox" type="checkbox" aria-label="Toggle complete" />
+      <div class="title">
+        <span class="text"></span>
+        <span class="chip due" hidden><span class="dot"></span><span class="due-text"></span></span>
+        <span class="chip prio"><span class="dot"></span><span class="prio-text"></span></span>
+      </div>
+      <div class="row">
+        <button class="ghost edit" title="Edit">✏️</button>
+        <button class="ghost del" title="Delete">🗑️</button>
+        <span class="ghost" style="cursor:grab" title="Drag to reorder">⋮⋮</span>
+      </div>
+    </li>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
